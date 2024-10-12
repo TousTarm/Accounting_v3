@@ -6,7 +6,6 @@
         <title> Accounting v3</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/chatgpt.css') }}">
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     </head>
     <body class="flex flex-col w-[100%] h-[100%] bg-zinc-900">
@@ -38,6 +37,8 @@
                 </div>
             </div>
             <div class="flex flex-col w-[100%]">
+
+
                 <div class="flex flex-col ">
                     {% for row in data %}
                         <div class="row flex text-white">
@@ -50,19 +51,22 @@
                             <div class="account">{{ row.account }}</div>
                             <div class="note pr-[10px]">{{ row.note }}</div>
                             {% if row.type == "manual" %}
-                                <div class="type manual">{{ row.type }}</div>
+                                <button class="type manual" value="{{ row._id }}">{{ row.type }}</button>
                             {% else %}
-                                <div class="type">{{ row.type }}</div>
+                                <button class="type" value="{{ row._id }}">{{ row.type }}</button>
                             {% endif %}
                             {% if row.flag == "manual" %}
-                                <div class="flag manual">{{ row.flag }}</div>
+                                <button class="flag manual" value="{{ row._id }}">{{ row.flag }}</button>
                             {% else %}
-                                <div class="flag">{{ row.flag }}</div>
+                                <button class="flag" value="{{ row._id }}">{{ row.flag }}</button>
                             {% endif %}
                             <div class="edit">.....</div>
                         </div>
                     {% endfor %}
                 </div>
+                
+
+
                 <div class="flex flex-col text-white m-[20px]">
                     {% for value in totals %}
                         <div class="flex"> 

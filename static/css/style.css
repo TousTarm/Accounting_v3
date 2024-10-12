@@ -1,9 +1,12 @@
-.date, .amount, .note, .account, .edit, .type, .flag, .manual{
+.date, .amount, .note, .account, .edit, .manual{
     border:1px solid white;
     padding:4px;
 }
 .date, .amount, .account, .edit, .type, .flag, .manual{
     text-align: center;
+}
+.type,.flag{
+    border:1px solid white;
 }
 .positive{
     background-color: rgb(126, 250, 115);
@@ -35,7 +38,9 @@
 .manual{
     background-color: rgb(255, 0, 0);
 }
+.manual-col{
+    background-color: rgb(255, 0, 0);
+}
 .type2{
     width:10%;
 }
-
