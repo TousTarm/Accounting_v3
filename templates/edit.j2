@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs" class="flex w-[100%] h-[100%]">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Accounting v3</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/chatgpt.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    </head>
+    <body class="flex flex-col w-[100%] h-[100%] bg-zinc-900">
+        <div class="flex justify-center items-center w-[100%] bg-black text-white">
+            <div class="flex">
+                <a href="{{ url_for('home') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Home</a>
+                <a href="{{ url_for('edit') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Data</a>
+                <a href="#" class="px-[20px] py-[10px] hover:bg-zinc-900">About</a>
+                <a href="#" class="px-[20px] py-[10px] hover:bg-zinc-900">Contact</a>
+            </div>
+        </div>
+        <div class="flex w-[100%] h-[100%]">
+            <div class="flex flex-col w-[10%] h-[100%] bg-zinc-950 text-white">
+                <p class="p-[20px] text-2xl">Filters</p>
+                <div class="flex flex-col ml-[20px]">
+                    <form method="get" action="/edit">
+                        <div class="flex flex-col">
+                            <label class="block">
+                                <input class="leading-tight" name="positive" value="true" type="checkbox">
+                                <span class="text-lg">Positive</span>
+                            </label>
+                            <label class="block">
+                                <input class="leading-tight" name="negative" value="true" type="checkbox">
+                                <span class="text-lg">Negative</span>
+                            </label>
+                            <button type="submit" class="bg-white text-black w-[70px] h-[25px]" name="parameter" value="true">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="flex flex-col w-[100%]">
+                <div class="flex flex-col ">
+                    {% for row in data %}
+                        <div class="row flex text-white">
+                            <div class="date">{{ row.date }}</div>
+                            {% if row.value == "positive" %}
+                                <div class="amount positive">{{ row.amount }}</div>
+                            {% else %}
+                                <div class="amount negative">{{ row.amount }}</div>
+                            {% endif %}
+                            <div class="account">{{ row.account }}</div>
+                            <div class="note pr-[10px]">{{ row.note }}</div>
+                            {% if row.type == "manual" %}
+                                <div class="type manual">{{ row.type }}</div>
+                            {% else %}
+                                <div class="type">{{ row.type }}</div>
+                            {% endif %}
+                            {% if row.flag == "manual" %}
+                                <div class="flag manual">{{ row.flag }}</div>
+                            {% else %}
+                                <div class="flag">{{ row.flag }}</div>
+                            {% endif %}
+                            <div class="edit">.....</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="flex flex-col text-white m-[20px]">
+                    {% for value in totals %}
+                        <div class="flex"> 
+                            <div class="type2 border-[1px] border-white p-[10px]">
+                                {% if loop.index == 1 %}
+                                    <p>Net</p>
+                                {% else %}
+                                    <p>{{ keywords[loop.index - 2][0] }}</p>
+                                {% endif %}
+                            </div>
+                            {% if value|int >= 0 %}
+                                <div class="amount border-[1px] border-white p-[10px] positive">{{ value }}kč</div>
+                            {% else %}
+                                <div class="amount border-[1px] border-white p-[10px] negative">{{ value }}kč</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>                
+            </div>
+        </div>
+    </body>
+</html>

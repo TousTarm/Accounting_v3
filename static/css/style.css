@@ -1,0 +1,41 @@
+.date, .amount, .note, .account, .edit, .type, .flag, .manual{
+    border:1px solid white;
+    padding:4px;
+}
+.date, .amount, .account, .edit, .type, .flag, .manual{
+    text-align: center;
+}
+.positive{
+    background-color: rgb(126, 250, 115);
+}
+.negative{
+    background-color: rgb(247, 110, 110);
+}
+.date{
+    width: 5%;
+}
+.amount{
+    width:5%;
+}
+.note{
+    width:61%;
+}
+.account{
+    width:10%;
+}
+.edit{
+    width:15%;
+}
+.type{
+    width:7%;
+}
+.flag{
+    width:7%;
+}
+.manual{
+    background-color: rgb(255, 0, 0);
+}
+.type2{
+    width:10%;
+}
+

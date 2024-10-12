@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="cs" class="flex w-[100%] h-[100%]">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Accounting v3</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    </head>
+    <body class="flex flex-col w-[100%] h-[100%] bg-gray-100">
+        <div class="flex justify-center items-center w-[100%] bg-blue-100">
+            <div class="flex">
+                <a href="{{ url_for('home') }}" class="px-[20px] py-[10px] hover:bg-blue-300">Home</a>
+                <a href="{{ url_for('data') }}" class="px-[20px] py-[10px] hover:bg-blue-300">Data</a>
+                <a href="#" class="px-[20px] py-[10px] hover:bg-blue-300">About</a>
+                <a href="#" class="px-[20px] py-[10px] hover:bg-blue-300">Contact</a>
+            </div>
+        </div>
+        <div class="flex justify-center items-center w-[50%] h-[100%] ml-[25%] bg-white shadow-md">
+            <div class="flex w-[40%] rounded-xl bg-gray-300 shadow-md">
+                <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data" class="flex w-full flex-col items-center">
+                    <div class="flex flex-col w-full items-center">
+                        <label for="file" class="pt-4 font-bold">Select a CSV file:</label>
+                        <button type="button" id="customButton" class="w-[40%] bg-gray-800 p-2 text-white font-bold hover:bg-gray-700 mt-[10px] mb-[15px] rounded-md">Browse</button>
+                        <input type="file" name="file" id="file">
+                        <span id="fileName"></span>
+                        <button type="submit" class="w-[100%] p-2 mt-[15px] bg-gray-800 text-white font-bold hover:bg-gray-700 rounded-b-lg">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            // JavaScript to handle file input and custom button interaction
+            const fileInput = document.getElementById('file');
+            const customButton = document.getElementById('customButton');
+            const fileNameDisplay = document.getElementById('fileName');
+    
+            // Trigger file input when custom button is clicked
+            customButton.addEventListener('click', function() {
+                fileInput.click();
+            });
+    
+            // Display the selected file name
+            fileInput.addEventListener('change', function() {
+                const fileName = this.files[0] ? this.files[0].name : 'No file selected';
+                fileNameDisplay.textContent = fileName;
+            });
+        </script>
+    </body>
+</html>
