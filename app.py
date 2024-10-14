@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from pymongo import MongoClient
-import os,csv,json
+from bson.objectid import ObjectId
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -23,7 +24,6 @@ def sum(data):
     
     ordered_sums = [sums_by_type[values[0]] for key, values in keywords.items()]
     ordered_sums.insert(0,sum)
-    print(ordered_sums)
     return ordered_sums
         
 @app.route('/')
@@ -52,10 +52,48 @@ def edit():
         else:
             data = list(db['srpen'].find())
             totals = sum(data)
-        print(keywords)
         return render_template('edit.j2',data=data,totals=totals,keywords=keywords)
-
- 
     
+@app.route('/get_data/<string:object_id>', methods=['GET'])
+def get_data(object_id):
+    try:
+        document = db['srpen'].find_one({"_id": ObjectId(object_id)})
+        if document is None:
+            return jsonify({"error": "Document not found"}), 404
+        document['_id'] = str(document['_id'])
+        return jsonify(document)
+    
+    except Exception as e:
+        print(f"An error occurred: {e}, něco se posralo kurwa drat")
+        return jsonify({"error": "An unexpected error occurred"}), 500
+
+@app.route('/update_data', methods=['POST'])
+def update_data():
+    # Get the form data
+    object_id = request.form.get('id')
+    date = request.form.get('date')
+    amount = request.form.get('amount')
+    account = request.form.get('account')
+    note = request.form.get('note')
+    type_ = request.form.get('type')
+    flag = request.form.get('flag')
+
+    print(date,amount,account,note,type_,flag)
+
+    db['srpen'].update_one(
+        {'_id': ObjectId(object_id)},
+        {
+            '$set': {
+                'date': date,
+                'amount': amount,
+                'account': account,
+                'note': note,
+                'type': type_,
+                'flag': flag
+            }
+        }
+    )
+    return redirect(url_for('edit'))
+
 if __name__ == "__main__":
     app.run(debug=True)

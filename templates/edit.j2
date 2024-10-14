@@ -7,8 +7,13 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+
     </head>
     <body class="flex flex-col w-[100%] h-[100%] bg-zinc-900">
+        <div id="modal_overlay" class="modal-overlay"></div>
+            <div id="modal" class="rounded"></div>
+        <div id="close_modal"></div>
         <div class="flex justify-center items-center w-[100%] bg-black text-white">
             <div class="flex">
                 <a href="{{ url_for('home') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Home</a>
@@ -37,8 +42,6 @@
                 </div>
             </div>
             <div class="flex flex-col w-[100%]">
-
-
                 <div class="flex flex-col ">
                     {% for row in data %}
                         <div class="row flex text-white">
@@ -64,9 +67,6 @@
                         </div>
                     {% endfor %}
                 </div>
-                
-
-
                 <div class="flex flex-col text-white m-[20px]">
                     {% for value in totals %}
                         <div class="flex"> 
