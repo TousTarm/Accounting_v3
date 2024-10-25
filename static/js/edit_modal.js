@@ -27,10 +27,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         <input type="text" name="amount" class="field text-sm rounded-lg p-[4px]" placeholder="Amount" value="${data.amount}"/>
                         <input type="text" name="account" class="field text-sm rounded-lg p-[4px]" placeholder="Account" value="${data.account}"/>
                         <textarea name="note" class="field-note text-sm rounded-lg p-[4px]" placeholder="Note" rows="4">${data.note}</textarea>
-                    
+
                         <div class="dropdown-container">
-                            <div id="dropdown-btn type-btn" onclick="open_dropdown()">Select Type</button>
-                            <div id="dropdown-content" style="display: none;"></div>
+                            <div id="type-button" onclick="open_dropdown('type')">${data.type}</div>
+                            <div id="dropdown-content-type" style="display: none;"></div>
+                            <input type="hidden" name="type" id="type-input">
+                        </div>
+                        <div class="dropdown-container">
+                            <div id="flag-button" onclick="open_dropdown('flag')">${data.flag}</div>
+                            <div id="dropdown-content-flag" style="display: none;"></div>
+                            <input type="hidden" name="flag" id="flag-input">
                         </div>
 
                         <button class="bg-white text-black w-[70px] h-[25px]" type="submit">Submit</button>

@@ -85,3 +85,9 @@
     padding:4px;
     margin:2px 0;
 }
+#type-button, #flag-button, .select-button{
+    width:100px;
+    background-color: white;
+    padding:5px;
+    cursor:pointer;
+}

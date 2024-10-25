@@ -6,12 +6,12 @@ with MongoClient("mongodb://localhost:27017/") as client:
     if "srpen" not in db.list_collection_names():
         db.create_collection("srpen")
     
-
     # MAZE VSECHNO V DATABAZI -------------------------------------
     db["srpen"].delete_many({})  # Clear all documents in "srpen"
     db["keywords"].delete_many({})  # Clear all documents in "keywords"
     # MAZE VSECHNO V DATABAZI -------------------------------------
 
+    # DEFAULTNI KEYWORDS
     keywords = {
     "lidl": ["Lidl", "manual"],
     "albert": ["Albert", "manual"],
@@ -46,7 +46,7 @@ with MongoClient("mongodb://localhost:27017/") as client:
 
             matched = False
             for keyword, (type_val, flag_val) in keywords_dict.items():
-                if keyword in row[14]:
+                if keyword in row[14] and keyword != "":
                     row.append(type_val)
                     row.append(flag_val)
                     matched = True

@@ -36,11 +36,8 @@ def home():
 
 @app.route('/edit')
 def edit():
-    # Fetch keywords from MongoDB 'keywords' collection
     keywords_cursor = db["keywords"].find()
     keywords = [[keyword["type"], keyword["flag"]] for keyword in keywords_cursor]
-
-    # Filter data based on query parameters
     if request.args.get('parameter') is None:
         data = list(db['srpen'].find())
         totals = sum(data)
@@ -66,7 +63,7 @@ def get_data(object_id):
         document = db['srpen'].find_one({"_id": ObjectId(object_id)})
         if document is None:
             return jsonify({"error": "Document not found"}), 404
-        document['_id'] = str(document['_id'])  # Convert ObjectId to string
+        document['_id'] = str(document['_id'])
         return jsonify(document)
 
     except Exception as e:
@@ -75,7 +72,6 @@ def get_data(object_id):
 
 @app.route('/update_data', methods=['POST'])
 def update_data():
-    # Get the form data
     object_id = request.form.get('id')
     date = request.form.get('date')
     amount = request.form.get('amount')
@@ -83,9 +79,6 @@ def update_data():
     note = request.form.get('note')
     type_ = request.form.get('type')
     flag = request.form.get('flag')
-
-    print(date, amount, account, note, type_, flag)
-
     db['srpen'].update_one(
         {'_id': ObjectId(object_id)},
         {
@@ -104,8 +97,8 @@ def update_data():
 @app.route('/get_keywords', methods=['GET'])
 def get_keywords():
     try:
-        keywords = list(db['keywords'].find({}, {"_id": 0}))  # Exclude _id from the result
-        return jsonify(keywords)  # Send the keywords as JSON
+        keywords = list(db['keywords'].find({}, {"_id": 0}))  # Fetch all keywords without _id
+        return jsonify(keywords)
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({"error": "An unexpected error occurred"}), 500
