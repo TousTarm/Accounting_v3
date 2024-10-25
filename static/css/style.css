@@ -44,7 +44,9 @@
 .type2{
     width:10%;
 }
-
+.row:hover{
+    background-color: rgb(87, 87, 87);
+}
 #modal {
     display: none;
     position: fixed;

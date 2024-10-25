@@ -9,12 +9,8 @@
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
         <script src="{{ url_for('static', filename='js/edit_modal.js') }}"></script>
         <script src="{{ url_for('static', filename='js/edit_dropdown.js') }}"></script>
-
-  
-
-
     </head>
-    <body class="flex flex-col w-[100%] h-[100%] bg-zinc-900">
+    <body class="flex flex-col w-[100%] h-[100%] bg-zinc-950">
         <div id="modal_overlay" class="modal-overlay"></div>
             <div id="modal" class="rounded"></div>
         <div id="close_modal"></div>
@@ -27,20 +23,20 @@
             </div>
         </div>
         <div class="flex w-[100%] h-[100%]">
-            <div class="flex flex-col w-[10%] h-[100%] bg-zinc-950 text-white">
+            <div class="flex flex-col w-[10%] h-[100%] text-white">
                 <p class="p-[20px] text-2xl">Filters</p>
                 <div class="flex flex-col ml-[20px]">
                     <form method="get" action="/edit">
                         <div class="flex flex-col">
                             <label class="block">
-                                <input class="leading-tight" name="positive" value="true" type="checkbox">
+                                <input class="leading-tight" name="value" value="positive" type="checkbox">
                                 <span class="text-lg">Positive</span>
                             </label>
                             <label class="block">
-                                <input class="leading-tight" name="negative" value="true" type="checkbox">
+                                <input class="leading-tight" name="value" value="negative" type="checkbox">
                                 <span class="text-lg">Negative</span>
                             </label>
-                            <button type="submit" class="bg-white text-black w-[70px] h-[25px]" name="parameter" value="true">Submit</button>
+                            <button type="submit" class="bg-white text-black w-[70px] h-[25px]" name="filter" value="true">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -71,6 +67,8 @@
                         </div>
                     {% endfor %}
                 </div>
+
+                <!--
                 <div class="flex flex-col text-white m-[20px]">
                     {% for value in totals %}
                         <div class="flex"> 
@@ -88,7 +86,8 @@
                             {% endif %}
                         </div>
                     {% endfor %}
-                </div>                
+                </div>          
+                -->      
             </div>
         </div>
     </body>

@@ -5,16 +5,16 @@ function open_dropdown(dropdownType) {
 
     // Open dropdown and load content if not already populated
     if (dropdownContent.children.length === 0) {
-        fetch('/get_keywords')
+        fetch(`/get_${dropdownType}`)  // Adjusted to fetch based on dropdownType
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
-            .then(keywords => {
+            .then(items => {
                 dropdownContent.innerHTML = '';
-                const uniqueValues = [...new Set(keywords.map(keyword => keyword[dropdownType]))];
+                const uniqueValues = [...new Set(items.map(item => item[dropdownType]))];
 
                 if (uniqueValues.length === 0) {
                     dropdownContent.innerHTML = `<p>No ${dropdownType}s available</p>`;
@@ -42,6 +42,7 @@ function open_dropdown(dropdownType) {
     } else {
         dropdownContent.style.display = (dropdownContent.style.display === 'none' || dropdownContent.style.display === '') ? 'block' : 'none';
     }
+
     function handleOutsideClick(event) { // Function to close the dropdown if clicked outside
         if (!dropdownContent.contains(event.target) && event.target !== btn) {
             dropdownContent.style.display = 'none';
