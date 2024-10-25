@@ -21,13 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(data => {
                 modal.innerHTML = `
-                    <form method="post" class="update_form" action="/update_data">
+                    <form method="post" class="update_form bg-blue-500 flex" action="/update_data">
                         <input type="hidden" name="id" value="${data._id}"/>
                         <input type="text" name="date" class="field text-sm rounded-lg p-[4px]" placeholder="dd.mm.yyyy" value="${data.date}"/>
                         <input type="text" name="amount" class="field text-sm rounded-lg p-[4px]" placeholder="Amount" value="${data.amount}"/>
                         <input type="text" name="account" class="field text-sm rounded-lg p-[4px]" placeholder="Account" value="${data.account}"/>
                         <textarea name="note" class="field-note text-sm rounded-lg p-[4px]" placeholder="Note" rows="4">${data.note}</textarea>
-
                         <div class="dropdown-container">
                             <div id="type-button" onclick="open_dropdown('type')">${data.type}</div>
                             <div id="dropdown-content-type" style="display: none;"></div>

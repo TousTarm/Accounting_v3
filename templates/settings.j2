@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="cs" class="flex w-[100%] h-[100%]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Accounting v3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <script src="{{ url_for('static', filename='js/new_setting.js') }}" defer></script> <!-- Link to the external JS file -->
+</head>
+<body class="flex flex-col w-[100%] h-[100%] bg-zinc-900 ">
+    <div class="flex justify-center items-center w-[100%] bg-black text-white">
+        <div class="flex">
+            <a href="{{ url_for('home') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Home</a>
+            <a href="{{ url_for('edit') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Data</a>
+            <a href="{{ url_for('settings') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Settings</a>
+            <a href="#" class="px-[20px] py-[10px] hover:bg-zinc-900">About</a>
+            <a href="#" class="px-[20px] py-[10px] hover:bg-zinc-900">Contact</a>
+        </div>
+    </div>
+    <div class="flex justify-around w-full h-full text-white mt-[50px]">
+        <div class="flex flex-col bg-black w-1/5 h-min mx-[3%]" id="types-container">
+            {% for row in types %}
+                <div class="flex setting-row border-white border-[1px] p-2">
+                    <div class="w-1/2 pl-4">{{ row.type }}</div>
+                    <div class="w-1/2 text-center">...</div>
+                </div>
+            {% endfor %}
+            <div class="text-center border-white border-[1px] text-4xl plus" onclick="addNewField('type')">+</div>
+        </div>
+        <div class="flex flex-col bg-black w-1/5 h-min" id="flags-container">
+            {% for row in flags %}
+                <div class="flex setting-row border-white border-[1px] p-2">
+                    <div class="w-1/2 pl-4">{{ row.flag }}</div>
+                    <div class="w-1/2 text-center">...</div>
+                </div>
+            {% endfor %}
+            <div class="text-center border-white border-[1px] text-4xl plus" onclick="addNewField('flag')">+</div>
+        </div>
+        <div class="flex flex-col black w-1/2 h-min mx-[3%]">
+            {% for row in filters %}
+                <div class="flex setting-row border-white border-[1px] p-2">
+                    <div class="w-1/2 pl-4">{{ row.string }}</div>
+                    <div class="w-1/6">{{ row.type }} </div>
+                    <div class="w-1/6">{{ row.flag }} </div>
+                    <div class="w-1/6 text-center">...</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

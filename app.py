@@ -25,6 +25,29 @@ def edit():
         else:
             data = list(db['srpen'].find())
         return render_template('edit.j2', data=data)
+    
+@app.route('/settings')
+def settings():
+    types = list(db['types'].find({}, {'_id': 0}))
+    flags = list(db['flags'].find({}, {'_id': 0}))
+    filters = list(db['filters'].find({}, {'_id': 0}))
+    return render_template('settings.j2', types=types, flags=flags, filters=filters)
+
+@app.route('/add_type', methods=['POST'])
+def add_type():
+    new_type = request.json.get('type')
+    if new_type:
+        db['types'].insert_one({'type': new_type})
+        return jsonify({'message': 'Type added successfully!'}), 201
+    return jsonify({'error': 'Type cannot be empty!'}), 400
+
+@app.route('/add_flag', methods=['POST'])
+def add_flag():
+    new_flag = request.json.get('flag')
+    if new_flag:
+        db['flags'].insert_one({'flag': new_flag})
+        return jsonify({'message': 'Flag added successfully!'}), 201
+    return jsonify({'error': 'Flag cannot be empty!'}), 400
 
 @app.route('/get_data/<string:object_id>', methods=['GET'])
 def get_data(object_id):
