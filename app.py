@@ -49,42 +49,16 @@ def add_flag():
         return jsonify({'message': 'Flag added successfully!'}), 201
     return jsonify({'error': 'Flag cannot be empty!'}), 400
 
-@app.route('/get_data/<string:object_id>', methods=['GET'])
-def get_data(object_id):
-    try:
-        document = db['srpen'].find_one({"_id": ObjectId(object_id)})
-        if document is None:
-            return jsonify({"error": "Document not found"}), 404
-        document['_id'] = str(document['_id'])
-        return jsonify(document)
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return jsonify({"error": "An unexpected error occurred"}), 500
-
-@app.route('/update_data', methods=['POST'])
-def update_data():
-    object_id = request.form.get('id')
-    date = request.form.get('date')
-    amount = request.form.get('amount')
-    account = request.form.get('account')
-    note = request.form.get('note')
-    type_ = request.form.get('type')
-    flag_ = request.form.get('flag')
-    db['srpen'].update_one(
-        {'_id': ObjectId(object_id)},
-        {
-            '$set': {
-                'date': date,
-                'amount': amount,
-                'account': account,
-                'note': note,
-                'type': type_,
-                'flag': flag_
-            }
-        }
-    )
-    return redirect(url_for('edit'))
+@app.route('/update_type', methods=['POST'])
+def update_type():
+    data = request.get_json()
+    if not data or 'id' not in data or 'type' not in data:
+        return jsonify({'error': 'Invalid input'}), 400
+    result = db['types'].update_one({'_id': data['id']},{'$set': {'type': data['type']}})
+    if result.modified_count > 0:
+        return jsonify({'message': 'Update successful'}), 200
+    else:
+        return jsonify({'message': 'No document updated'}), 404
 
 @app.route('/get_type')
 def get_types():

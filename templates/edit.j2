@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="flex flex-col w-[100%]">
-                <div class="flex flex-col ">
+                <div class="flex flex-col">
                     {% for row in data %}
                         <div class="row flex text-white">
                             <div class="date">{{ row.date }}</div>
@@ -58,12 +58,13 @@
                             {% endif %}
                             <div class="account">{{ row.account }}</div>
                             <div class="note pr-[10px]">{{ row.note }}</div>
-                            <div class="typeDropdown flex w-[7%]" id='{{ row._id }}'>
+                            <div class="flex flex-col w-[7%]">
                                 {% if row.type == "manual" %}
-                                    <div class="type manual"  onclick="showTypes('{{ row._id }}')">{{ row.type }}</div>
+                                    <div class="type manual" onclick="showTypes('{{ row._id }}')">{{ row.type }}</div>
                                 {% else %}
                                     <div class="type" onclick="showTypes('{{ row._id }}')">{{ row.type }}</div>
                                 {% endif %}
+                                <div class="typeDropdown" id="{{ row._id }}" style="display: none;"></div> <!-- Set display to none initially -->
                             </div>
                             {% if row.flag == "manual" %}
                                 <div class="flag manual" value="{{ row._id }}">{{ row.flag }}</div>
@@ -74,7 +75,7 @@
                         </div>
                     {% endfor %}
                 </div>
-
+                
                 <!--
                 <div class="flex flex-col text-white m-[20px]">
                     {% for value in totals %}

@@ -44,7 +44,20 @@
 .row:hover{
     background-color: rgb(87, 87, 87);
 }
-.typeDropdown{
-    display:flex;
-    flex-direction: column;
+.typeDropdown {
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid #ffffff;
+    z-index: 1000;
+    width:6%;
+    overflow-y: auto; 
+}
+
+.dropdown-item {
+    padding: 8px; /* Padding for each item */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+.dropdown-item:hover {
+    background-color: rgb(87, 87, 87); /* Highlight on hover */
 }
