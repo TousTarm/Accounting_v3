@@ -1,6 +1,6 @@
 function showTypes(rowID) {
-    const container = document.getElementById(rowID);
-    const old = container.innerHTML;  // Fixed typo: use innerHTML, not getHTML()
+    const container = document.getElementById("ty-"+rowID);
+    const old = container.innerHTML;
 
     fetch('/get_type')
         .then(response => {
@@ -10,18 +10,15 @@ function showTypes(rowID) {
             return response.json();
         })
         .then(data => {
-            container.innerHTML = '';  // Clear previous content before adding new items
+            container.innerHTML = '';
             data.forEach(item => {
                 const div = document.createElement('div');
                 div.textContent = item.type;
                 div.classList.add("type", "dropdown-item");
-                
-                // Add click event handler for updating type
                 div.addEventListener("click", () => {
                     updateType(rowID, item.type);
                     container.style.display = "none";
                 });
-
                 container.appendChild(div);
             });
             container.style.display = "block";
@@ -59,7 +56,7 @@ function updateType(rowID, value) {
         return response.json();
     })
     .then(data => {
-        const container = document.getElementById("div-"+rowID);
+        const container = document.getElementById("type-"+rowID);
         container.innerHTML = value;
         container.classList.remove("manual");
         container.classList.add("updated");

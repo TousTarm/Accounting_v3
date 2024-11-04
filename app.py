@@ -8,6 +8,7 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 client = MongoClient("mongodb://localhost:27017/")
 db = client["accounting"]
 
+#--- ROUTES ------------------------------------------------------------------------------------------------
 @app.route('/')
 def home():
     return render_template('index.j2')
@@ -33,6 +34,7 @@ def settings():
     filters = list(db['filters'].find({}, {'_id': 0}))
     return render_template('settings.j2', types=types, flags=flags, filters=filters)
 
+# --- METHODS ------------------------------------------------------------------------------------------------
 @app.route('/add_type', methods=['POST'])
 def add_type():
     new_type = request.json.get('type')
@@ -54,6 +56,16 @@ def update_type():
     id = request.json.get('id')
     type = request.json.get('type')
     result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'type': type,'type_status':"updated"}})
+    if result.modified_count > 0:
+        return jsonify({'message': 'Update successful'}), 200
+    else:
+        return jsonify({'message': 'No document updated'}), 1000
+
+@app.route('/update_flag', methods=['POST'])
+def update_flag():
+    id = request.json.get('id')
+    flag = request.json.get('flag')
+    result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'flag': flag,'flag_status':"updated"}})
     if result.modified_count > 0:
         return jsonify({'message': 'Update successful'}), 200
     else:

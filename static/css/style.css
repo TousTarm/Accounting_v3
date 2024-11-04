@@ -29,9 +29,6 @@
 .edit{
     width:15%;
 }
-.flag{
-    width:7%;
-}
 /* BARVY */
 .manual{
     background-color: #F95454;
@@ -47,8 +44,16 @@
     background-color: rgb(87, 87, 87);
 }
 
-/* DROPDOWN - EDIT.j2*/ 
+
 .typeDropdown {
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid #ffffff;
+    z-index: 1000;
+    width:6%;
+    overflow-y: auto; 
+}
+.flagDropdown {
     position: absolute;
     background-color: rgb(0, 0, 0);
     border: 1px solid #ffffff;
