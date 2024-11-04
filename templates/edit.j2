@@ -59,12 +59,8 @@
                             <div class="account">{{ row.account }}</div>
                             <div class="note pr-[10px]">{{ row.note }}</div>
                             <div class="flex flex-col w-[7%]">
-                                {% if row.type == "manual" %}
-                                    <div class="type manual" onclick="showTypes('{{ row._id }}')">{{ row.type }}</div>
-                                {% else %}
-                                    <div class="type" onclick="showTypes('{{ row._id }}')">{{ row.type }}</div>
-                                {% endif %}
-                                <div class="typeDropdown" id="{{ row._id }}" style="display: none;"></div> <!-- Set display to none initially -->
+                            <div class="type {{ row.type_status }}" onclick="showTypes('{{ row._id }}')" id="div-{{ row._id }}">{{ row.type }}</div>
+                            <div class="typeDropdown" id="{{ row._id }}" style="display: none;"></div>
                             </div>
                             {% if row.flag == "manual" %}
                                 <div class="flag manual" value="{{ row._id }}">{{ row.flag }}</div>

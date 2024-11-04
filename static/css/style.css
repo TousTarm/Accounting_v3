@@ -1,12 +1,12 @@
-.date, .amount, .note, .account, .type, .edit, .manual{
+*{
+    font-weight: 600;
+}
+.date, .amount, .note, .account, .type, .flag, .edit{
     border:1px solid white;
     padding:4px;
 }
-.date, .amount, .account, .edit, .type, .flag, .manual{
+.date, .amount, .account, .edit, .type, .flag{
     text-align: center;
-}
-.type,.flag{
-    border:1px solid white;
 }
 .positive{
     background-color: rgb(126, 250, 115);
@@ -15,16 +15,16 @@
     background-color: rgb(247, 110, 110);
 }
 .date{
-    width: 5%;
+    width:7%;
 }
 .amount{
     width:5%;
 }
 .note{
-    width:61%;
+    width:51%;
 }
 .account{
-    width:10%;
+    width:18%;
 }
 .edit{
     width:15%;
@@ -32,18 +32,22 @@
 .flag{
     width:7%;
 }
+/* BARVY */
 .manual{
-    background-color: rgb(255, 0, 0);
+    background-color: #F95454;
 }
-.manual-col{
-    background-color: rgb(255, 0, 0);
+.updated{
+    background-color: #77CDFF;
 }
-.type2{
-    width:10%;
+.generated{
+    background-color: #0D92F4;
 }
+/* ROW */
 .row:hover{
     background-color: rgb(87, 87, 87);
 }
+
+/* DROPDOWN - EDIT.j2*/ 
 .typeDropdown {
     position: absolute;
     background-color: rgb(0, 0, 0);
@@ -52,12 +56,10 @@
     width:6%;
     overflow-y: auto; 
 }
-
 .dropdown-item {
     padding: 8px; /* Padding for each item */
     cursor: pointer; /* Change cursor on hover */
 }
-
 .dropdown-item:hover {
     background-color: rgb(87, 87, 87); /* Highlight on hover */
 }

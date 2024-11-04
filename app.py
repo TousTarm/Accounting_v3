@@ -53,13 +53,11 @@ def add_flag():
 def update_type():
     id = request.json.get('id')
     type = request.json.get('type')
-    if not id or not type:
-        return jsonify({'error': 'Invalid input'}), 400
-    result = db['types'].update_one({'_id': ObjectId(id)}, {'$set': {'type': type}})
+    result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'type': type,'type_status':"updated"}})
     if result.modified_count > 0:
         return jsonify({'message': 'Update successful'}), 200
     else:
-        return jsonify({'message': 'No document updated'}), 404
+        return jsonify({'message': 'No document updated'}), 1000
 
 @app.route('/get_type')
 def get_types():

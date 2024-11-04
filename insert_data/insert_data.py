@@ -33,23 +33,33 @@ with MongoClient("mongodb://localhost:27017/") as client:
                 if keyword in row[14] and keyword != "":
                     type_val = filter_keywords[keyword]['type']
                     flag_val = filter_keywords[keyword]['flag']
+                    type_status = "generated"
+                    flag_status = "generated"
                     row.append(type_val)
                     row.append(flag_val)
+                    if(type_val == "manual"):
+                        type_status = "manual"
+                    if(flag_val == "manual"):
+                        flag_status = "manual"
                     matched = True
                     break
-
+                
             if not matched:
                 row.append("manual")
                 row.append("manual")
-
+                type_status = "manual"
+                flag_status = "manual"
+            
             document = {
                 'date': row[1],
                 'amount': row[2],
                 'account': row[7],
                 'note': row[14],
                 'type': row[21],
+                'type_status': type_status,
                 'flag': row[22],
-                'value': value
+                'flag_status': flag_status,
+                'value': value,
             }
             documents.append(document)
         if documents:

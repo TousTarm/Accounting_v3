@@ -59,7 +59,10 @@ function updateType(rowID, value) {
         return response.json();
     })
     .then(data => {
-        console.log('Update successful:', data);
+        const container = document.getElementById("div-"+rowID);
+        container.innerHTML = value;
+        container.classList.remove("manual");
+        container.classList.add("updated");
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
