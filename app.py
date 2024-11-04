@@ -51,10 +51,11 @@ def add_flag():
 
 @app.route('/update_type', methods=['POST'])
 def update_type():
-    data = request.get_json()
-    if not data or 'id' not in data or 'type' not in data:
+    id = request.json.get('id')
+    type = request.json.get('type')
+    if not id or not type:
         return jsonify({'error': 'Invalid input'}), 400
-    result = db['types'].update_one({'_id': data['id']},{'$set': {'type': data['type']}})
+    result = db['types'].update_one({'_id': ObjectId(id)}, {'$set': {'type': type}})
     if result.modified_count > 0:
         return jsonify({'message': 'Update successful'}), 200
     else:
