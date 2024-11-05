@@ -9,6 +9,11 @@
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
         <script src="{{ url_for('static', filename='js/edit_types.js') }}"></script>
         <script src="{{ url_for('static', filename='js/edit_flags.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/edit_onoff.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/update_stats.js') }}"></script>
+
+        <script src="https://kit.fontawesome.com/230a478f67.js" crossorigin="anonymous"></script>
+
 
 
         <!--
@@ -49,49 +54,40 @@
                 </div>
             </div>
             <div class="flex flex-col w-[100%]">
-                <div class="flex flex-col">
-                    {% for row in data %}
-                        <div class="row flex text-white">
-                            <div class="date">{{ row.date }}</div>
-                            {% if row.value == "positive" %}
-                                <div class="amount positive">{{ row.amount }}</div>
-                            {% else %}
-                                <div class="amount negative">{{ row.amount }}</div>
-                            {% endif %}
-                            <div class="account">{{ row.account }}</div>
-                            <div class="note pr-[10px]">{{ row.note }}</div>
-                            <div class="flex flex-col w-[7%]">
-                                <div class="type {{ row.type_status }}" onclick="showTypes('{{ row._id }}')" id="type-{{ row._id }}">{{ row.type }}</div>
-                                <div class="typeDropdown" id="ty-{{ row._id }}" style="display: none;"></div>
-                            </div>
-                            <div class="flex flex-col w-[7%]">
-                                <div class="flag {{ row.flag_status }}" onclick="showFlags('{{ row._id }}')" id="flag-{{ row._id }}">{{ row.flag }}</div>
-                                <div class="flagDropdown" id="fl-{{ row._id }}" style="display: none;"></div>
-                            </div>
+                {% for row in data %}
+                <div class="flex flex-col {{ row.status }}" id="row-{{ row._id }}" >
+                    <div class="row flex text-white">
+                        <div class="date">{{ row.date }}</div>
+                        {% if row.value == "positive" %}
+                            <div class="amount positive">{{ row.amount }}</div>
+                        {% else %}
+                            <div class="amount negative">{{ row.amount }}</div>
+                        {% endif %}
+                        <div class="account">{{ row.account }}</div>
+                        <div class="note pl-[10px]">{{ row.note }}</div>
+                        <div class="flex flex-col w-[7%]">
+                            <div class="type {{ row.type_status }}" onclick="showTypes('{{ row._id }}')" id="type-{{ row._id }}">{{ row.type }}</div>
+                            <div class="typeDropdown" id="ty-{{ row._id }}" style="display: none;"></div>
+                        </div>
+                        <div class="flex flex-col w-[7%]">
+                            <div class="flag {{ row.flag_status }}" onclick="showFlags('{{ row._id }}')" id="flag-{{ row._id }}">{{ row.flag }}</div>
+                            <div class="flagDropdown" id="fl-{{ row._id }}" style="display: none;"></div>
+                        </div>
+                        <div class="edit">
+                            <div class="flex justify-around"><i class="fa-solid fa-power-off" onclick="turnONOFF('{{ row._id }}')"></i><i class="fa-solid fa-pencil"></i></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="stats flex flex-col w-[100%]">
+                    <div class=" text-5xl m-auto my-[30px]">Stats</div>
+                    {% for row in stats %}
+                        <div class="flex justify-around m-auto w-[20%]">
+                            <div class="p-[5px] border-[1px] border-white w-[50%]">{{ row[0] }}</div>
+                            <div class="p-[5px] border-[1px] border-white w-[50%] {% if row[1]|int > 1 %}positive{% elif 0 > row[1]|int%}negative{% endif %}" id="{{ row[0] }}">{{ row[1] }}</div>
                         </div>
                     {% endfor %}
                 </div>
-                
-                <!--
-                <div class="flex flex-col text-white m-[20px]">
-                    {% for value in totals %}
-                        <div class="flex"> 
-                            <div class="type2 border-[1px] border-white p-[10px]">
-                                {% if loop.index == 1 %}
-                                    <p>Net</p>
-                                {% else %}
-                                    <p>{{ keywords[loop.index - 2][0] }}</p>
-                                {% endif %}
-                            </div>
-                            {% if value|int >= 0 %}
-                                <div class="amount border-[1px] border-white p-[10px] positive">{{ value }}kč</div>
-                            {% else %}
-                                <div class="amount border-[1px] border-white p-[10px] negative">{{ value }}kč</div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>          
-                -->      
             </div>
         </div>
     </body>

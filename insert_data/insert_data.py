@@ -60,6 +60,7 @@ with MongoClient("mongodb://localhost:27017/") as client:
                 'flag': row[22],
                 'flag_status': flag_status,
                 'value': value,
+                'status': "on"
             }
             documents.append(document)
         if documents:

@@ -17,7 +17,6 @@ def home():
 def edit():
     if request.args.get('filter') is None:
         data = list(db['srpen'].find())
-        return render_template('edit.j2', data=data)
     else:
         if request.args.get('value') == "positive":
             data = list(db['srpen'].find({"value": "positive"}))
@@ -25,7 +24,15 @@ def edit():
             data = list(db['srpen'].find({"value": "negative"}))
         else:
             data = list(db['srpen'].find())
-        return render_template('edit.j2', data=data)
+
+    stats = {type['type']: 0 for type in db['types'].find()}
+    for item in data:
+        if item.get('type') in stats and item.get('status') == "on":
+            stats[item['type']] += item['amount']
+
+    stats = [[type_name, total] for type_name, total in stats.items()]
+    return render_template('edit.j2', data=data, stats=stats)
+
     
 @app.route('/settings')
 def settings():
@@ -55,7 +62,10 @@ def add_flag():
 def update_type():
     id = request.json.get('id')
     type = request.json.get('type')
-    result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'type': type,'type_status':"updated"}})
+    if (type) != "manual":
+        result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'type': type,'type_status':"updated"}})
+    else:
+        result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'type': type,'type_status':"manual"}})
     if result.modified_count > 0:
         return jsonify({'message': 'Update successful'}), 200
     else:
@@ -65,6 +75,11 @@ def update_type():
 def update_flag():
     id = request.json.get('id')
     flag = request.json.get('flag')
+    if (type) != "manual":
+        result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'flag': flag,'flag_status':"updated"}})
+    else:
+        result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'flag': flag,'flag_status':"manual"}})
+
     result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'flag': flag,'flag_status':"updated"}})
     if result.modified_count > 0:
         return jsonify({'message': 'Update successful'}), 200
@@ -80,6 +95,44 @@ def get_types():
 def get_flags():
     flags = list(db['flags'].find({}, {'_id': 0}))
     return jsonify(flags)
+
+@app.route('/update_status', methods=['POST'])
+def update_status():
+    id = request.json.get('id')
+    document = db['srpen'].find_one({'_id': ObjectId(id)})
+    if not document:
+        return jsonify({'error': 'Document not found'}), 404
+    current_status = document.get('status', 'OFF')
+    new_status = 'off' if current_status == 'on' else 'on'
+    result = db['srpen'].update_one({'_id': ObjectId(id)}, {'$set': {'status': new_status}})
+    if result.modified_count > 0:
+        return jsonify({'message': 'Update successful', 'new_status': new_status}), 200
+    else:
+        return jsonify({'message': 'No document updated'}), 1000
+
+@app.route('/get_stats')
+def get_stats():
+    if request.args.get('filter') is None:
+        data = list(db['srpen'].find({"status":"on"},{'_id': 0}))
+        print("filter je gone")
+    else:
+        if request.args.get('value') == "positive":
+            data = list(db['srpen'].find({"value": "positive"},{"status":"on"}))
+            print("positive")
+        elif request.args.get('value') == "negative":
+            data = list(db['srpen'].find({"value": "negative"},{"status":"on"}))
+            print("negative")
+        else:
+            data = list(db['srpen'].find())
+            print("fuck")
+    
+    stats = {type['type']: 0 for type in db['types'].find()}
+    for item in data:
+        stats[item['type']] += item['amount']
+
+    stats_list = [[type_name, total] for type_name, total in stats.items()]
+    return jsonify(stats=stats_list)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

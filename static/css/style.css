@@ -32,18 +32,20 @@
 /* BARVY */
 .manual{
     background-color: #F95454;
+    cursor: pointer;
 }
 .updated{
     background-color: #77CDFF;
+    cursor: pointer;
 }
 .generated{
     background-color: #0D92F4;
+    cursor: pointer;
 }
 /* ROW */
 .row:hover{
     background-color: rgb(87, 87, 87);
 }
-
 
 .typeDropdown {
     position: absolute;
@@ -67,4 +69,14 @@
 }
 .dropdown-item:hover {
     background-color: rgb(87, 87, 87); /* Highlight on hover */
+}
+.off{
+    opacity: 45%;
+}
+i{
+    cursor: pointer;
+}
+.stats *{
+    color: white;
+    text-align: center;
 }

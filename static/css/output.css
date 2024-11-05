@@ -107,7 +107,7 @@
 }
 
 /*
-! tailwindcss v3.4.13 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -550,7 +550,7 @@ video {
 
 /* Make elements with the HTML hidden attribute stay hidden by default */
 
-[hidden] {
+[hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
 
@@ -558,13 +558,18 @@ video {
   position: static;
 }
 
-.m-\[20px\] {
-  margin: 20px;
+.m-auto {
+  margin: auto;
 }
 
 .mx-\[3\%\] {
   margin-left: 3%;
   margin-right: 3%;
+}
+
+.my-\[30px\] {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .mb-\[15px\] {
@@ -593,6 +598,10 @@ video {
 
 .mt-\[50px\] {
   margin-top: 50px;
+}
+
+.mt-\[30px\] {
+  margin-top: 30px;
 }
 
 .block {
@@ -658,6 +667,22 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[\] {
+  width: ;
+}
+
+.w-\[0\%\] {
+  width: 0%;
+}
+
+.w-\[20\%\] {
+  width: 20%;
+}
+
+.w-\[5\] {
+  width: 5;
 }
 
 .flex-col {
@@ -746,12 +771,20 @@ video {
   padding: 0.5rem;
 }
 
-.p-\[10px\] {
-  padding: 10px;
-}
-
 .p-\[20px\] {
   padding: 20px;
+}
+
+.p-\[\] {
+  padding: ;
+}
+
+.p-\[5\] {
+  padding: 5;
+}
+
+.p-\[5px\] {
+  padding: 5px;
 }
 
 .px-\[20px\] {
@@ -778,8 +811,8 @@ video {
   padding-left: 1rem;
 }
 
-.pr-\[10px\] {
-  padding-right: 10px;
+.pl-\[10px\] {
+  padding-left: 10px;
 }
 
 .pt-4 {
@@ -803,6 +836,16 @@ video {
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .font-bold {
