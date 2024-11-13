@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <script src="{{ url_for('static', filename='js/new_setting.js') }}" defer></script> <!-- Link to the external JS file -->
+    <script src="{{ url_for('static', filename='js/settings/new_setting.js') }}" defer></script>
+    <script src="https://kit.fontawesome.com/230a478f67.js" crossorigin="anonymous"></script>
+
 </head>
 <body class="flex flex-col w-[100%] h-[100%] bg-zinc-900 ">
     <div class="flex justify-center items-center w-[100%] bg-black text-white">
         <div class="flex">
             <a href="{{ url_for('home') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Home</a>
             <a href="{{ url_for('edit') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Data</a>
+            <a href="{{ url_for('stats') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Stats</a>
             <a href="{{ url_for('settings') }}" class="px-[20px] py-[10px] hover:bg-zinc-900">Settings</a>
             <a href="#" class="px-[20px] py-[10px] hover:bg-zinc-900">About</a>
             <a href="#" class="px-[20px] py-[10px] hover:bg-zinc-900">Contact</a>
@@ -27,7 +30,7 @@
                     <div class="w-1/2 text-center">...</div>
                 </div>
             {% endfor %}
-            <div class="text-center border-white border-[1px] text-4xl plus" onclick="addNewField('type')">+</div>
+            <div class="text-center border-white border-[1px]" onclick="addNewField('type')"><i class="fa-solid fa-plus"></i></div>
         </div>
         <div class="flex flex-col bg-black w-1/5 h-min" id="flags-container">
             {% for row in flags %}
@@ -36,7 +39,7 @@
                     <div class="w-1/2 text-center">...</div>
                 </div>
             {% endfor %}
-            <div class="text-center border-white border-[1px] text-4xl plus" onclick="addNewField('flag')">+</div>
+            <div class="text-center border-white border-[1px]" onclick="addNewField('flag')"><i class="fa-solid fa-plus"></i></div>
         </div>
         <div class="flex flex-col black w-1/2 h-min mx-[3%]">
             {% for row in filters %}

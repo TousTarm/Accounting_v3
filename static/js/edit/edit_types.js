@@ -1,7 +1,6 @@
 function showTypes(rowID) {
     const container = document.getElementById("ty-"+rowID);
     const old = container.innerHTML;
-
     fetch('/get_type')
         .then(response => {
             if (!response.ok) {
@@ -22,13 +21,11 @@ function showTypes(rowID) {
                 container.appendChild(div);
             });
             container.style.display = "block";
-
-            // Add event listener to close dropdown on outside click
             document.addEventListener('click', function handleClickOutside(event) {
                 if (!container.contains(event.target) && event.target !== container) {
                     container.style.display = "none";
                     document.removeEventListener('click', handleClickOutside);
-                    container.innerHTML = old;  // Restore old content
+                    container.innerHTML = old;
                 }
             });
         })
@@ -38,7 +35,6 @@ function showTypes(rowID) {
 }
 
 function updateType(rowID, value) {
-    console.log("you clicked on button", rowID, value);
     fetch('/update_type', {
         method: 'POST',
         headers: {

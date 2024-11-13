@@ -1,6 +1,5 @@
 function turnONOFF(rowID) {
     const row = document.getElementById("row-" + rowID);
-
     fetch('/update_status', {
         method: 'POST',
         headers: {
@@ -22,7 +21,6 @@ function turnONOFF(rowID) {
             row.classList.add("off");
             row.classList.remove("on");
         }
-        updateStats();
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);

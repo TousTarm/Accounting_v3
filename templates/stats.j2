@@ -7,9 +7,6 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-        <script src="{{ url_for('static', filename='js/edit/edit_types.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/edit/edit_flags.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/edit/edit_onoff.js') }}"></script>
         <script src="https://kit.fontawesome.com/230a478f67.js" crossorigin="anonymous"></script>
     </head>
     <body class="flex flex-col w-[100%] h-[100%] bg-zinc-950">
@@ -26,7 +23,7 @@
                 <a href="#" class="px-[20px] py-[10px] hover:bg-zinc-900">Contact</a>
             </div>
         </div>
-        <div class="flex w-[100%]">
+        <div class="flex w-[100%] h-[100%]">
             <div class="flex flex-col w-[10%] h-[100%] text-white">
                 <p class="p-[20px] text-2xl">Filters</p>
                 <div class="flex flex-col ml-[20px]">
@@ -45,35 +42,22 @@
                     </form>
                 </div>
             </div>
-            <div class="flex flex-col w-[100%] pb-[1000px]">
-                {% for row in data %}
-                <div class="flex flex-col {{ row.status }}" id="row-{{ row._id }}" >
-                    <div class="row flex text-white">
-                        <div class="date">{{ row.date }}</div>
-                        {% if row.value == "positive" %}
-                            <div class="amount positive">{{ row.amount }}</div>
-                        {% else %}
-                            <div class="amount negative">{{ row.amount }}</div>
-                        {% endif %}
-                        <div class="account">{{ row.account }}</div>
-                        <div class="note pl-[10px]">{{ row.note }}</div>
-                        <div class="flex flex-col w-[7%]">
-                            <div class="type {{ row.type_status }}" onclick="showTypes('{{ row._id }}')" id="type-{{ row._id }}">{{ row.type }}</div>
-                            <div class="typeDropdown" id="ty-{{ row._id }}" style="display: none;"></div>
+            <div class="flex w-[100%] text-white justify-around">
+                {% for flag in stats%}
+                    <div class="stats_container">
+                        <div class="container_top">
+                            <div class="header">{{ flag[0] }}</div>
+                            <div class="stat_amount {% if flag[1]|int > 0%}positive{% elif 0>flag[1]|int %}negative{% endif %}">{{ flag[1] }}</div>
                         </div>
-                        <div class="flex flex-col w-[7%]">
-                            <div class="flag {{ row.flag_status }}" onclick="showFlags('{{ row._id }}')" id="flag-{{ row._id }}">{{ row.flag }}</div>
-                            <div class="flagDropdown" id="fl-{{ row._id }}" style="display: none;"></div>
-                        </div>
-                        <div class="edit">
-                            <div class="flex justify-around"><i class="fa-solid fa-power-off" onclick="turnONOFF('{{ row._id }}')"></i><i class="fa-solid fa-pencil"></i></div>
+                        <div class="container_bottom">
+                            {% for type in flag[2] %}
+                                <div class="type_container">
+                                    <div class="header">{{ type[0] }}</div>
+                                    <div class="stat_amount {% if type[1]|int > 0%}positive{% elif 0>type[1]|int %}negative{% endif %}">{{ type[1] }}</div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
-                </div>
-                {% else %}
-                <div class="text-white flex m-auto">
-                    You have not selected your collection
-                </div>
                 {% endfor %}
             </div>
         </div>

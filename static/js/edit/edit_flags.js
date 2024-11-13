@@ -1,7 +1,6 @@
 function showFlags(rowID) {
     const container = document.getElementById("fl-"+rowID);
-    const old = container.innerHTML;  // Fixed typo: use innerHTML, not getHTML()
-
+    const old = container.innerHTML;
     fetch('/get_flag')
         .then(response => {
             if (!response.ok) {
@@ -22,8 +21,6 @@ function showFlags(rowID) {
                 container.appendChild(div);
             });
             container.style.display = "block";
-
-            // Add event listener to close dropdown on outside click
             document.addEventListener('click', function handleClickOutside(event) {
                 if (!container.contains(event.target) && event.target !== container) {
                     container.style.display = "none";
@@ -38,7 +35,6 @@ function showFlags(rowID) {
 }
 
 function updateFlag(rowID, value) {
-    console.log("you clicked on flag", rowID, value);
     fetch('/update_flag', {
         method: 'POST',
         headers: {

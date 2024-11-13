@@ -76,7 +76,32 @@
 i{
     cursor: pointer;
 }
-.stats *{
-    color: white;
+/* STATS */
+.stats_container{
+    display:flex;
+    flex-direction: column;
+    width:200px;
+}
+.container_top{
+    display:flex;
+    flex-direction: column;
     text-align: center;
+    margin-bottom:10px;
+}
+.header{
+    padding:6px;
+    border: 1px solid white;
+}
+.stat_amount{
+    padding:6px;
+    border: 1px solid white;
+}
+.container_bottom{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+}
+.type_container{
+    display:flex;
+    flex-direction: column;
 }
