@@ -23,25 +23,7 @@
                 <a href="#" class="px-[20px] py-[10px] hover:bg-zinc-900">Contact</a>
             </div>
         </div>
-        <div class="flex w-[100%] h-[100%]">
-            <div class="flex flex-col w-[10%] h-[100%] text-white">
-                <p class="p-[20px] text-2xl">Filters</p>
-                <div class="flex flex-col ml-[20px]">
-                    <form method="get" action="/edit">
-                        <div class="flex flex-col">
-                            <label class="block">
-                                <input class="leading-tight" name="positive" value="true" type="checkbox">
-                                <span class="text-lg">Positive</span>
-                            </label>
-                            <label class="block">
-                                <input class="leading-tight" name="negative" value="true" type="checkbox">
-                                <span class="text-lg">Negative</span>
-                            </label>
-                            <button type="submit" class="bg-white text-black w-[70px] h-[25px]" name="filter" value="true">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="flex flex-col w-[100%] h-[100%]">
             <div class="flex w-[100%] text-white justify-around">
                 {% for flag in stats%}
                     <div class="stats_container">
@@ -59,6 +41,8 @@
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+            <div class="flex flex-col m-auto border-white border-[2px] mt-[100px]">
             </div>
         </div>
     </body>

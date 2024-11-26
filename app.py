@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key' # ---------------------------------------------------------------------------HARD CODED
@@ -124,7 +127,6 @@ def stats():
         for flag in stats
     ]
 
-    print(nested_stats)
     return render_template('stats.j2', stats=nested_stats)
 # ---------------------------- SETTINGS ROUTE --------------------------------------------------------
 @app.route('/settings')
@@ -149,8 +151,6 @@ def add_flag():
         db['flags'].insert_one({'flag': new_flag})
         return jsonify({'message': 'Flag added successfully!'}), 201
     return jsonify({'error': 'Flag cannot be empty!'}), 400
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
